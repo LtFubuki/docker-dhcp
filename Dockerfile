@@ -14,9 +14,6 @@ RUN mkdir /etc/dhcp/conf.d
 COPY update-config.sh /usr/local/bin/update-config.sh
 RUN chmod +x /usr/local/bin/update-config.sh
 
-# Copy the dhcpd.conf file to the container
-COPY dhcpd.conf /etc/dhcp/dhcpd.conf
-
 # Set the ownership of the dhcpd.leases file to the dhcpd user
 RUN touch /var/lib/dhcp/dhcpd.leases && chown dhcpd:dhcpd /var/lib/dhcp/dhcpd.leases
 
