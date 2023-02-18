@@ -10,9 +10,13 @@ ENV DHCP_CONFIG_URL https://raw.githubusercontent.com/LtFubuki/docker-dhcp/main/
 # Create a directory to hold the configuration file
 RUN mkdir /etc/dhcp/conf.d
 
-# Copy the update-config.sh script to the container
+# Copy the script and configuration file to the container
 COPY update-config.sh /usr/local/bin/update-config.sh
 RUN chmod +x /usr/local/bin/update-config.sh
+RUN chown root:root /usr/local/bin/update-config.sh
+RUN chmod 755 /usr/local/bin/update-config.sh
+RUN chown -R root:root /etc/dhcp
+RUN chmod -R 755 /etc/dhcp
 
 # Copy the dhcpd.conf file to the container
 COPY dhcpd.conf /etc/dhcp/dhcpd.conf
