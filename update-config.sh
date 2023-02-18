@@ -9,9 +9,9 @@ do
   wget -q -O /tmp/dhcpd.conf $DHCP_CONFIG_URL
 
   # Check if the downloaded file is different from the current configuration file
-  if ! cmp -s /tmp/dhcpd.conf /etc/dhcp/conf.d/dhcpd.conf; then
+  if ! cmp -s /tmp/dhcpd.conf /etc/dhcp/dhcpd.conf; then
     # Copy the updated configuration file to the directory
-    cp /tmp/dhcpd.conf /etc/dhcp/conf.d/dhcpd.conf
+    cp /tmp/dhcpd.conf /etc/dhcp/dhcpd.conf
     echo "Updated DHCP configuration file"
     # Restart the DHCP server to apply the changes
     /etc/init.d/isc-dhcp-server restart
