@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the URL of the DHCP configuration file
-DHCP_CONFIG_URL="https://raw.githubusercontent.com/your-username/your-repo/main/dhcpd.conf"
+DHCP_CONFIG_URL="https://raw.githubusercontent.com/LtFubuki/docker-dhcp/main/dhcpd.conf"
 
 while true
 do
