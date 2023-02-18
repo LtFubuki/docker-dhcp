@@ -2,7 +2,7 @@
 FROM ubuntu:latest
 
 # Update the package list and install the DHCP server and Git
-RUN apt-get update && apt-get install -y isc-dhcp-server git
+RUN apt-get update && apt-get install -y isc-dhcp-server git curl
 
 # Set the URL for the raw configuration file on GitHub
 ENV DHCP_CONFIG_URL https://raw.githubusercontent.com/LtFubuki/docker-dhcp/main/dhcpd.conf
