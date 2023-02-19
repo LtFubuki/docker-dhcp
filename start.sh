@@ -19,5 +19,6 @@ docker rm $DOCKER_CONTAINER_NAME
 # Run the new Docker container
 docker run -d \
   --name $DOCKER_CONTAINER_NAME \
-  -p 67:67 \
+  --net=host \
+  -v $PWD/dhcpd.conf:/etc/dhcp/dhcpd.conf \
   $DOCKER_IMAGE_NAME
