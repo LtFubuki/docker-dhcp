@@ -20,5 +20,5 @@ docker rm $DOCKER_CONTAINER_NAME
 docker run -d \
   --name $DOCKER_CONTAINER_NAME \
   --net=host \
-  -p 67:67
+  -p 67:67 \
   $DOCKER_IMAGE_NAME
