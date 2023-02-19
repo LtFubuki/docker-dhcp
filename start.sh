@@ -20,5 +20,4 @@ docker rm $DOCKER_CONTAINER_NAME
 docker run -d \
   --name $DOCKER_CONTAINER_NAME \
   --net=host \
-  -v $DHCP_CONFIG_URL:/etc/dhcp/dhcpd.conf \
   $DOCKER_IMAGE_NAME
