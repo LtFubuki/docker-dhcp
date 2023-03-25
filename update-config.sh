@@ -8,6 +8,7 @@ fetch_config() {
     echo "Fetched configuration file successfully."
   else
     echo "Failed to fetch configuration file."
+    exit 1
   fi
 }
 
@@ -36,7 +37,7 @@ while true; do
   configure_interface
 
   # Check if the config file has changed
-  if ! cmp -s /etc/dhcp/dhcpd.conf /tmp/dhcpd.conf; then
+  if [ -f /tmp/dhcpd.conf ] && ! cmp -s /etc/dhcp/dhcpd.conf /tmp/dhcpd.conf; then
     echo "Configuration file has changed, updating and restarting DHCP server..."
     cp /tmp/dhcpd.conf /etc/dhcp/dhcpd.conf
 
