@@ -1,33 +1,25 @@
 #!/bin/bash
 
-# Get primary network interface
-INTERFACE=$(ip route show | awk '/default/ {print $5}' | head -n 1)
-
-# Get IP address and subnet mask of the primary network interface
-IP_ADDRESS=$(ip -o -f inet addr show $INTERFACE | awk '{print $4}')
-
-# Calculate network address and netmask
-NETWORK_ADDRESS=$(ipcalc -n $IP_ADDRESS | awk -F= '{print $2}')
-NETMASK=$(ipcalc -m $IP_ADDRESS | awk -F= '{print $2}')
-
-# Set up a basic subnet declaration
-SUBNET_DECLARATION="subnet $NETWORK_ADDRESS netmask $NETMASK {
-  range ${NETWORK_ADDRESS%.*}.100 ${NETWORK_ADDRESS%.*}.200;
-  option routers $IP_ADDRESS;
-  option domain-name-servers 8.8.8.8, 8.8.4.4;
-}"
-
 # Function to fetch the latest config file from GitHub
 fetch_config() {
   echo "Fetching configuration file..."
-  curl -L -o /etc/dhcp/dhcpd.conf --silent "${CONFIG_REPO_URL}"
+  curl -L -o /tmp/dhcpd.conf --silent "${CONFIG_REPO_URL}"
 }
 
-# Fetch the initial config file
-fetch_config
+# Function to configure the DHCP server interface
+configure_interface() {
+  INTERFACE=$(ip -o -4 route show to default | awk '{print $5}')
+  IP_ADDRESS=$(ip -o -4 addr list $INTERFACE | awk '{print $4}' | cut -d/ -f1)
+  SUBNET_MASK=$(ipcalc -m $IP_ADDRESS | cut -d= -f2)
+  sed -i "s/INTERFACENAME/$INTERFACE/" /tmp/dhcpd.conf
+  sed -i "s/IPADDRESS/$IP_ADDRESS/" /tmp/dhcpd.conf
+  sed -i "s/SUBNETMASK/$SUBNET_MASK/" /tmp/dhcpd.conf
+}
 
-# Append subnet declaration to the configuration file
-echo "$SUBNET_DECLARATION" >> /etc/dhcp/dhcpd.conf
+# Fetch the initial config file and configure interface
+fetch_config
+configure_interface
+cp /tmp/dhcpd.conf /etc/dhcp/dhcpd.conf
 
 # Start the DHCP server in the background
 /usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf --no-pid &
@@ -35,13 +27,13 @@ echo "$SUBNET_DECLARATION" >> /etc/dhcp/dhcpd.conf
 # Continuously poll for updates to the config file
 while true; do
   sleep 60
-  LATEST_CONFIG=$(curl -L --silent --remote-name --remote-header-name --remote-time "${CONFIG_REPO_URL}")
+  fetch_config
+  configure_interface
 
   # Check if the config file has changed
-  if ! cmp -s /etc/dhcp/dhcpd.conf "${LATEST_CONFIG}"; then
+  if ! cmp -s /etc/dhcp/dhcpd.conf /tmp/dhcpd.conf; then
     echo "Configuration file has changed, updating and restarting DHCP server..."
-    mv "${LATEST_CONFIG}" /etc/dhcp/dhcpd.conf
-    echo "$SUBNET_DECLARATION" >> /etc/dhcp/dhcpd.conf
+    cp /tmp/dhcpd.conf /etc/dhcp/dhcpd.conf
 
     # Restart the DHCP server
     pkill dhcpd
