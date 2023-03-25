@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Update and install required packages
 RUN apt-get update && \
-    apt-get install -y --allow-unauthenticated \
+    apt-get install -y \
     isc-dhcp-server \
     curl \
     git \
