@@ -6,12 +6,15 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Update and install required packages
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --allow-unauthenticated \
     isc-dhcp-server \
     curl \
     git \
     inotify-tools \
+    procps \
     && rm -rf /var/lib/apt/lists/*
+
+RUN touch /var/lib/dhcp/dhcpd.leases    
 
 # Set environment variables
 ENV CONFIG_REPO_URL=https://raw.githubusercontent.com/LtFubuki/docker-dhcp/main/dhcpd.conf
