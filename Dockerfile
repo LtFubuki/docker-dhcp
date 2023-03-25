@@ -12,6 +12,8 @@ RUN apt-get update && \
     ipcalc && \
     rm -rf /var/lib/apt/lists/*
 
+RUN touch /var/lib/dhcp/dhcpd.leases
+
 COPY update-config.sh /update-config.sh
 RUN chmod +x /update-config.sh
 
