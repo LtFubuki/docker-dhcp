@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Set environment variables
-ENV CONFIG_REPO_URL=https://raw.githubusercontent.com/yourusername/yourrepo/main/dhcpd.conf
+ENV CONFIG_REPO_URL=https://raw.githubusercontent.com/LtFubuki/docker-dhcp/main/dhcpd.conf
 
 # Copy update-config script into the container
 COPY update-config.sh /update-config.sh
