@@ -1,14 +1,12 @@
-# Use an Ubuntu 20.04 base image
-FROM ubuntu:23.04
+# Use a Debian base image
+FROM debian:stable-slim
 
 # Prevent any prompts during package installation
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Update GPG keys and install required packages
+# Update and install required packages
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends gnupg2 apt-transport-https && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
-    apt-get update && apt-get install -y \
+    apt-get install -y \
     isc-dhcp-server \
     curl \
     git \
