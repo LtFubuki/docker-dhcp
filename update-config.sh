@@ -8,7 +8,6 @@ fetch_config() {
     echo "Fetched configuration file successfully."
   else
     echo "Failed to fetch configuration file."
-    exit 1
   fi
 }
 
