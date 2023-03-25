@@ -1,8 +1,11 @@
 # Use an Ubuntu base image
 FROM ubuntu:latest
 
-# Install required packages
-RUN apt-get update && apt-get install -y \
+# Update GPG keys and install required packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gnupg2 apt-transport-https && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
+    apt-get update && apt-get install -y \
     isc-dhcp-server \
     curl \
     git \
