@@ -4,6 +4,12 @@
 fetch_config() {
   echo "Fetching configuration file..."
   curl -L -o /tmp/dhcpd.conf --silent "${CONFIG_REPO_URL}"
+  if [ $? -eq 0 ]; then
+    echo "Fetched configuration file successfully."
+  else
+    echo "Failed to fetch configuration file."
+    exit 1
+  fi
 }
 
 # Function to configure the DHCP server interface
