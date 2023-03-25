@@ -1,5 +1,8 @@
-# Use an Ubuntu base image
-FROM ubuntu:latest
+# Use an Ubuntu 20.04 base image
+FROM ubuntu:20.04
+
+# Prevent any prompts during package installation
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Update GPG keys and install required packages
 RUN apt-get update && \
