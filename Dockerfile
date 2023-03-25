@@ -1,5 +1,5 @@
 # Use an Ubuntu 20.04 base image
-FROM ubuntu:20.04
+FROM ubuntu:23.04
 
 # Prevent any prompts during package installation
 ARG DEBIAN_FRONTEND=noninteractive
