@@ -2,12 +2,13 @@
 
 # Function to fetch the latest config file from GitHub
 fetch_config() {
-  echo "Fetching configuration file..."
-  curl -L -o /tmp/dhcpd.conf --silent "${CONFIG_REPO_URL}"
+  echo "Fetching configuration file from ${CONFIG_REPO_URL}..."
+  curl -k -L -o /tmp/dhcpd.conf --silent "${CONFIG_REPO_URL}"
   if [ $? -eq 0 ]; then
     echo "Fetched configuration file successfully."
   else
     echo "Failed to fetch configuration file."
+    exit 1
   fi
 }
 
