@@ -40,12 +40,14 @@ Within each VLAN, there are two IP address pools defined using the pool statemen
 
 For example, in VLAN 1, there are two pools defined: vlan1.pool1.example.com and vlan1.pool2.example.com. The first pool has a range of IP addresses from 10.1.1.10 to 10.1.1.50, and the second pool has a range of IP addresses from 10.1.2.10 to 10.1.2.50. Both pools use 10.1.0.2 as the domain name server.
 
+Similarly, VLAN 2 and VLAN 3 also have two IP address pools defined each, with different ranges of IP addresses and domain name servers.
+
 
 #################################################################################################################################################################
 
 
 
 
-Similarly, VLAN 2 and VLAN 3 also have two IP address pools defined each, with different ranges of IP addresses and domain name servers.
+
 
 Overall, this dhcpd.conf file provides a configuration for the DHCP server to assign IP addresses and other network configuration parameters to clients in different VLANs and IP address pools. It enables clients to connect to the network and access resources with the appropriate network configurations.
