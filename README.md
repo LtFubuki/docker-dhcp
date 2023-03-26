@@ -76,6 +76,7 @@ Both pools use 10.1.0.2 as the domain name server.
 
 Similarly, VLAN 2 and VLAN 3 also have two IP address pools defined each, with different ranges of IP addresses and domain name servers.
 
+Overall, this dhcpd.conf file provides a configuration for the DHCP server to assign IP addresses and other network configuration parameters to clients in different VLANs and IP address pools. It enables clients to connect to the network and access resources with the appropriate network configurations.
 
 #################################################################################################################################################################
 
@@ -150,5 +151,3 @@ By continuously polling for updates to the configuration file, the script ensure
 
 
 #################################################################################################################################################################
-
-Overall, this dhcpd.conf file provides a configuration for the DHCP server to assign IP addresses and other network configuration parameters to clients in different VLANs and IP address pools. It enables clients to connect to the network and access resources with the appropriate network configurations.
