@@ -27,10 +27,6 @@ fetch_config
 configure_interface
 cp /tmp/dhcpd.conf /etc/dhcp/dhcpd.conf
 
-# Add the interface configuration
-echo "Configuring DHCP server to listen on interface ${INTERFACE}..."
-echo "INTERFACESv4=\"${INTERFACE}\"" > /etc/default/isc-dhcp-server
-
 # Start the DHCP server in the background
 /usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf --no-pid &
 
