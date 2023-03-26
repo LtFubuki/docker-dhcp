@@ -66,18 +66,39 @@ Overall, this script simplifies the process of building and running the Docker c
 #################################################################################################################################################################
 
 
-The update-config.sh script that is used to dynamically update the configuration of the DHCP server running in the Docker container. The script runs inside the container and is automatically executed when the container starts, thanks to the ENTRYPOINT instruction in the Dockerfile.
+The update-config.sh script that is used to dynamically update the configuration of the DHCP server running in the Docker container. 
+
+The script runs inside the container and is automatically executed when the container starts, thanks to the ENTRYPOINT instruction in the Dockerfile.
 
 Here's a breakdown of the script:
 
-The fetch_config function fetches the latest configuration file from the GitHub repository using the curl command. If the download is successful, the function outputs a message indicating that the configuration file was fetched successfully. If the download fails, the function outputs a message indicating that the download failed and exits with an error code.
-The configure_interface function retrieves the IP address, subnet mask, and interface name of the Docker container using the ip and ipcalc commands. The function then uses the sed command to substitute these values into the configuration file template stored in /tmp/dhcpd.conf. The resulting file is saved to /etc/dhcp/dhcpd.conf, which is the location where the DHCP server reads its configuration file.
-The script then calls the fetch_config and configure_interface functions to fetch the initial configuration file and configure the DHCP server interface.
-The script sets the INTERFACESv4 environment variable in /etc/default/isc-dhcp-server to the name of the interface on which the DHCP server should listen. This ensures that the DHCP server only assigns IP addresses on the desired interface.
-The script starts the DHCP server in the background using the /usr/sbin/dhcpd command with the -f flag to run in the foreground, the -cf flag to specify the configuration file, and the --no-pid flag to prevent the DHCP server from writing a PID file.
-The script enters an infinite loop that sleeps for 60 seconds, fetches the configuration file, and checks if the configuration file has changed. If the configuration file has changed, the script updates the DHCP server configuration file, restarts the DHCP server, and continues the loop.
-Overall, this script provides a flexible and dynamic way to update the configuration of the DHCP server running in the Docker container. By continuously polling for updates to the configuration file, the script ensures that the DHCP server always has the latest configuration and can adapt to changes in the network environment.
+The fetch_config function fetches the latest configuration file from the GitHub repository using the curl command. 
 
+If the download is successful, the function outputs a message indicating that the configuration file was fetched successfully. 
+
+If the download fails, the function outputs a message indicating that the download failed and exits with an error code.
+
+The configure_interface function retrieves the IP address, subnet mask, and interface name of the Docker container using the ip and ipcalc commands. 
+
+The function then uses the sed command to substitute these values into the configuration file template stored in /tmp/dhcpd.conf. 
+
+The resulting file is saved to /etc/dhcp/dhcpd.conf, which is the location where the DHCP server reads its configuration file.
+
+The script then calls the fetch_config and configure_interface functions to fetch the initial configuration file and configure the DHCP server interface.
+
+The script sets the INTERFACESv4 environment variable in /etc/default/isc-dhcp-server to the name of the interface on which the DHCP server should listen. 
+
+This ensures that the DHCP server only assigns IP addresses on the desired interface.
+
+The script starts the DHCP server in the background using the /usr/sbin/dhcpd command with the -f flag to run in the foreground, the -cf flag to specify the configuration file, and the --no-pid flag to prevent the DHCP server from writing a PID file.
+
+The script enters an infinite loop that sleeps for 60 seconds, fetches the configuration file, and checks if the configuration file has changed. 
+
+If the configuration file has changed, the script updates the DHCP server configuration file, restarts the DHCP server, and continues the loop.
+
+Overall, this script provides a flexible and dynamic way to update the configuration of the DHCP server running in the Docker container. 
+
+By continuously polling for updates to the configuration file, the script ensures that the DHCP server always has the latest configuration and can adapt to changes in the network environment.
 
 
 
