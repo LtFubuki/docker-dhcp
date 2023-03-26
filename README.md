@@ -2,7 +2,9 @@ You can run the script directly from the command line using curl and bash. Here'
 
 curl -s https://raw.githubusercontent.com/LtFubuki/docker-dhcp/main/start.sh | bash
 
-####################################################################################################################################################################
+
+
+#################################################################################################################################################################
 
 
 
@@ -22,4 +24,28 @@ The update-config.sh script is responsible for updating the configuration of the
 
 Overall, this Dockerfile provides a flexible and dynamic way to run a DHCP server inside a container, allowing users to update the configuration of the server without needing to rebuild the container. It also ensures that the DHCP server is running in a controlled environment with only the necessary packages installed, which can help improve security and reduce the risk of conflicts with other software on the host system.
 
-####################################################################################################################################################################
+
+
+#################################################################################################################################################################
+
+
+
+the dhcpd.conf configuration file for the DHCP server inside the Docker container. It defines the IP address ranges and other network configuration parameters for each VLAN and pool of IP addresses in the network.
+
+The first section of the file sets the global parameters for the DHCP server. These include the default lease time, maximum lease time, and the authoritative flag, which indicates that the DHCP server is the only one responsible for assigning IP addresses in the network.
+
+The configuration file then defines three VLANs: VLAN 1, VLAN 2, and VLAN 3. Each VLAN is defined using a subnet statement, which specifies the IP address range and subnet mask for the VLAN.
+
+Within each VLAN, there are two IP address pools defined using the pool statement. Each pool specifies a range of IP addresses that can be assigned to clients in the VLAN, as well as the domain name and domain name servers to use for DNS resolution.
+
+For example, in VLAN 1, there are two pools defined: vlan1.pool1.example.com and vlan1.pool2.example.com. The first pool has a range of IP addresses from 10.1.1.10 to 10.1.1.50, and the second pool has a range of IP addresses from 10.1.2.10 to 10.1.2.50. Both pools use 10.1.0.2 as the domain name server.
+
+
+#################################################################################################################################################################
+
+
+
+
+Similarly, VLAN 2 and VLAN 3 also have two IP address pools defined each, with different ranges of IP addresses and domain name servers.
+
+Overall, this dhcpd.conf file provides a configuration for the DHCP server to assign IP addresses and other network configuration parameters to clients in different VLANs and IP address pools. It enables clients to connect to the network and access resources with the appropriate network configurations.
