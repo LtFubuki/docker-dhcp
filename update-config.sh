@@ -28,7 +28,7 @@ configure_interface
 cp /tmp/dhcpd.conf /etc/dhcp/dhcpd.conf
 
 # Start the DHCP server in the background
-/usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf --no-pid &
+/usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf -q eth0 --no-pid &
 
 # Continuously poll for updates to the config file
 while true; do
@@ -43,6 +43,6 @@ while true; do
 
     # Restart the DHCP server
     pkill dhcpd
-    /usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf --no-pid &
+    /usr/sbin/dhcpd -f -cf /etc/dhcp/dhcpd.conf -q eth0 --no-pid &
   fi
 done
