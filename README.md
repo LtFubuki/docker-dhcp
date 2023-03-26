@@ -46,6 +46,26 @@ Similarly, VLAN 2 and VLAN 3 also have two IP address pools defined each, with d
 #################################################################################################################################################################
 
 
+start.sh is the Bash script that automates the process of building and running the Docker container for the DHCP server with the configuration file from the GitHub repository.
+
+Here's a breakdown of the script:
+
+The DOCKER_IMAGE_NAME variable defines the name of the new Docker image that will be created from the Dockerfile in the GitHub repository.
+The DOCKER_CONTAINER_NAME variable defines the name of the new Docker container that will be created from the Docker image.
+The DHCP_CONFIG_URL variable defines the URL of the DHCP configuration file on GitHub.
+The docker build command builds the Docker image using the Dockerfile in the GitHub repository and sets the name of the new image to the value of the DOCKER_IMAGE_NAME variable.
+The docker stop and docker rm commands stop and remove the old Docker container (if it exists) with the same name as the value of the DOCKER_CONTAINER_NAME variable.
+The docker run command starts a new Docker container using the new image with the following options:
+The --name option sets the name of the new container to the value of the DOCKER_CONTAINER_NAME variable.
+The -p option maps port 67 on the host to port 67 in the container. Port 67 is the default port used by DHCP servers to communicate with clients.
+The $DOCKER_IMAGE_NAME variable specifies the name of the Docker image to use for the container.
+Overall, this script simplifies the process of building and running the Docker container for the DHCP server with the configuration file from the GitHub repository. By automating these steps, users can quickly and easily deploy a DHCP server in a containerized environment.
+
+
+
+#################################################################################################################################################################
+
+
 
 
 
